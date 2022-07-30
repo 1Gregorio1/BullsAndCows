@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/ok"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="98dp"
         android:layout_height="127dp"
@@ -48,7 +48,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/amountBulls"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#FF000000"
@@ -62,7 +62,7 @@
         app:layout_constraintVertical_bias="0.373" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/amountCows"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#FF000000"
@@ -91,7 +91,7 @@
         app:layout_constraintVertical_bias="0.685" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/mainText"
         android:layout_width="377dp"
         android:layout_height="115dp"
         android:layout_marginTop="4dp"
@@ -107,5 +107,35 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/regulations"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Правила"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/link"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GitHub"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
