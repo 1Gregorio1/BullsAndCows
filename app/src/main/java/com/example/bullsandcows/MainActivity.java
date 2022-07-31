@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
                 createButtonAlertDialog("Правила","Компьютер задумывает четыре различные цифры из 0,1,2,...9. \n" +
                         "Игрок делает ходы, чтобы узнать эти цифры и их порядок.\n" +
-                        "\n" +
+                        "Может начинаться с 0.\n" +
                         "Каждый ход состоит из четырёх цифр. \n" +
                         "\n" +
                         "В ответ компьютер показывает число отгаданных цифр, стоящих на своих местах (число быков)\n" +
@@ -95,6 +95,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /*
+        Вывод всплывающего окна с диалогом.
+     */
     private void createButtonAlertDialog(String title, String content){
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle(title);
@@ -102,9 +105,11 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
-
+    /*
+        Создаем четырехзначное значение из уникальных символов
+     */
     public static String makeNumber() {
-        String str = (int) (Math.random() * 9 + 1) + "";
+        String str = (int) (Math.random() * 9 ) + "";
         for (int i = 1; i < 4; i++) {
             while (true) {
                 String numeral = (int) (Math.random() * 9) + "";
@@ -117,6 +122,12 @@ public class MainActivity extends AppCompatActivity {
         return str;
     }
 
+    /*
+        hidden - загаданное значени
+        answer - введенное значение
+
+        Проверка наличия введенных символов в загаданном значении. При совпадении позиции символов увеличиваем количество быков, при разных позициях коров.
+     */
     static String searchForMatches(String hidden, String answer) {
         int bulls = 0, cows = 0;
         for (int i = 0; i < 4; i++) {
@@ -131,6 +142,9 @@ public class MainActivity extends AppCompatActivity {
         return bulls + "-" + cows;
     }
 
+    /*
+        Проверка введенного значения на число
+     */
     static boolean isNumeric(String line) {
         try {
             Integer.parseInt(line);
