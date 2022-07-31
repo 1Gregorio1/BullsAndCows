@@ -10,32 +10,34 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.awt.font.TextAttribute;
-
-import static java.lang.System.out;
-
 public class MainActivity extends AppCompatActivity {
-    Button ok, regulations, link;
+    Button ok, regulations, link, reset;
     TextView textBulls, textCows, amountBulls, amountCows, mainText;
     EditText editText;
-
+    String secretNumber;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         ok = findViewById(R.id.ok);
         regulations = findViewById(R.id.regulations);
         link = findViewById(R.id.link);
+        reset = findViewById(R.id.reset);
+
         textBulls = findViewById(R.id.textBulls);
         textCows = findViewById(R.id.textCows);
         amountBulls = findViewById(R.id.amountBulls);
         amountCows = findViewById(R.id.amountCows);
         mainText = findViewById(R.id.mainText);
+
         editText = findViewById(R.id.editText);
 
 
-        String secretNumber = makeNumber();
+
+        secretNumber = makeNumber();
+        reset.setEnabled(false);
         mainText.setText("Угадайте число из 4 уникальных цифр");
         //textView6.setTextColor(#FF000000);
         ok.setOnClickListener(new View.OnClickListener() {
@@ -57,7 +59,14 @@ public class MainActivity extends AppCompatActivity {
 
                     if (result.charAt(0) == '4') {
                         mainText.setText("Вы победили. Загаданое число: " + secretNumber);
-                        ok.setEnabled(false);
+                        conditionButton(ok, false);
+                        editText.setEnabled(false);
+                        editText.setAlpha(0);
+                        conditionButton(reset, true);
+                        conditionText(textBulls, false);
+                        conditionText(textCows, false);
+                        conditionText(amountBulls, false);
+                        conditionText(amountCows, false);
                     }
                 } else {
                     mainText.setText("Введите значение из 4 цифр");
@@ -86,13 +95,36 @@ public class MainActivity extends AppCompatActivity {
         link.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 createButtonAlertDialog("Ссылка на GitHub","https://github.com/1Gregorio1/BullsAndCows");
-
             }
         });
 
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                conditionButton(ok, true);
+                editText.setEnabled(true);
+                editText.setAlpha(1);
+                conditionButton(reset, false);
+                conditionText(textBulls, true);
+                conditionText(textCows, true);
+                conditionText(amountBulls, true);
+                conditionText(amountCows, true);
+                amountBulls.setText("");
+                amountCows.setText("");
+                mainText.setText("Все по новой!");
+                secretNumber = makeNumber();
+            }
+        });
+    }
 
+    void conditionButton(Button button, boolean condition){
+        button.setEnabled(condition == true ? true : false);
+        button.setAlpha(condition == true ? 1 : 0);
+    }
+
+    void conditionText(TextView textView, boolean condition){
+        textView.setAlpha(condition == true ? 1 : 0);
     }
 
     /*
