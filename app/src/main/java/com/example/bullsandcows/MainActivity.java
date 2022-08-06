@@ -1,6 +1,12 @@
 package com.example.bullsandcows;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,12 +15,14 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 public class MainActivity extends AppCompatActivity {
     Button ok, regulations, link, reset;
     TextView textBulls, textCows, amountBulls, amountCows, mainText;
     EditText editText;
     String secretNumber;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -92,10 +100,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        /*
+            Вызываем метод с алертом для кнопки "GITHAB"
+         */
+
         link.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createButtonAlertDialog("Ссылка на GitHub","https://github.com/1Gregorio1/BullsAndCows");
+                showAlertDialogButtonClicked();
+//                createButtonAlertDialog("Ссылка на GitHub", "https://github.com/1Gregorio1/BullsAndCows");
+//                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/1Gregorio1/BullsAndCows"));
+//                startActivity(browserIntent);
+//                createButtonAlertDialog("Ссылка на GitHub", "https://github.com/1Gregorio1/BullsAndCows");
             }
         });
 
@@ -118,11 +134,17 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /*
+        Скрывать или показывать кнопку
+    */
     void conditionButton(Button button, boolean condition){
         button.setEnabled(condition == true ? true : false);
         button.setAlpha(condition == true ? 1 : 0);
     }
 
+    /*
+        Скрывать или показывать текст
+    */
     void conditionText(TextView textView, boolean condition){
         textView.setAlpha(condition == true ? 1 : 0);
     }
@@ -157,7 +179,6 @@ public class MainActivity extends AppCompatActivity {
     /*
         hidden - загаданное значени
         answer - введенное значение
-
         Проверка наличия введенных символов в загаданном значении. При совпадении позиции символов увеличиваем количество быков, при разных позициях коров.
      */
     static String searchForMatches(String hidden, String answer) {
@@ -186,5 +207,25 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    /*
+        Создаем алерт с предложением перейти в репозиторий.
+        Вызываем метод в link.setOnClickListener
+     */
+    public void showAlertDialogButtonClicked() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Ссылка на GitHub");
+        builder.setMessage("https://github.com/1Gregorio1/BullsAndCows");
+        builder.setPositiveButton("Перейти",
+                //Необходимо доработать(оптимизировать)
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/1Gregorio1/BullsAndCows"));
+                        startActivity(browserIntent);
+                    }
+                }
+        );
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 }
