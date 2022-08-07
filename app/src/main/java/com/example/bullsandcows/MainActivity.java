@@ -1,21 +1,16 @@
 package com.example.bullsandcows;
 
-import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 
 public class MainActivity extends AppCompatActivity {
     Button ok, regulations, link, reset;
@@ -84,11 +79,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        /**
+         * Аллерт с правилами
+         */
         regulations.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 createButtonAlertDialog("Правила","Компьютер задумывает четыре различные цифры из 0,1,2,...9. \n" +
                         "Игрок делает ходы, чтобы узнать эти цифры и их порядок.\n" +
                         "Может начинаться с 0.\n" +
@@ -100,10 +96,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*
-            Вызываем метод с алертом для кнопки "GITHAB"
+        /**
+         * Вызываем метод с алертом для кнопки "GITHAB"
          */
-
         link.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -134,23 +129,29 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    /*
-        Скрывать или показывать кнопку
-    */
+    /**
+     * Скрывать или показывать кнопку
+     * @param button Кнопка окей
+     * @param condition Ее состояние
+     */
     void conditionButton(Button button, boolean condition){
         button.setEnabled(condition == true ? true : false);
         button.setAlpha(condition == true ? 1 : 0);
     }
 
-    /*
-        Скрывать или показывать текст
-    */
+    /**
+     * Скрывать или показывать текст
+     * @param textView Елемент с текстом
+     * @param condition Состояние элемента
+     */
     void conditionText(TextView textView, boolean condition){
         textView.setAlpha(condition == true ? 1 : 0);
     }
 
-    /*
-        Вывод всплывающего окна с диалогом.
+    /**
+     * Вывод всплывающего окна с диалогом.
+     * @param title Название всплывающего окна
+     * @param content Текст в этом окне
      */
     private void createButtonAlertDialog(String title, String content){
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
@@ -159,8 +160,9 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
-    /*
-        Создаем четырехзначное значение из уникальных символов
+    /**
+     * Создаем четырехзначное значение из уникальных символов
+     * @return Загаданное число
      */
     public static String makeNumber() {
         String str = (int) (Math.random() * 9 ) + "";
@@ -176,10 +178,11 @@ public class MainActivity extends AppCompatActivity {
         return str;
     }
 
-    /*
-        hidden - загаданное значени
-        answer - введенное значение
-        Проверка наличия введенных символов в загаданном значении. При совпадении позиции символов увеличиваем количество быков, при разных позициях коров.
+    /**
+     * Проверка наличия введенных символов в загаданном значении. При совпадении позиции символов увеличиваем количество быков, при разных позициях коров.
+     * @param hidden загаданное значени
+     * @param answer введенное значение
+     * @return количество быков и коров
      */
     static String searchForMatches(String hidden, String answer) {
         int bulls = 0, cows = 0;
@@ -195,8 +198,10 @@ public class MainActivity extends AppCompatActivity {
         return bulls + "-" + cows;
     }
 
-    /*
-        Проверка введенного значения на число
+    /**
+     *  Проверка введенного значения на число
+     * @param line введенное значение
+     * @return число или нет
      */
     static boolean isNumeric(String line) {
         try {
@@ -207,9 +212,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /*
-        Создаем алерт с предложением перейти в репозиторий.
-        Вызываем метод в link.setOnClickListener
+    /**
+     * Создаем алерт с предложением перейти в репозиторий.
+     * Вызываем метод в link.setOnClickListener
      */
     public void showAlertDialogButtonClicked() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
